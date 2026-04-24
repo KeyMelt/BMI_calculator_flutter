@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:bmi_calculator/screens/input_page.dart';
 import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/models/gender.dart';
 
 class GenderToggle extends StatelessWidget {
-  GenderToggle({required this.selectedGender, required this.onChanged});
+  const GenderToggle({super.key, required this.selectedGender, required this.onChanged});
 
   final Gender? selectedGender;
-  final Function(Gender) onChanged;
+  final ValueChanged<Gender> onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class GenderToggle extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30.0),
                       boxShadow: [
                         BoxShadow(
-                          color: kBottomContainerColour.withOpacity(0.3),
+                          color: kBottomContainerColour.withValues(alpha: 0.3),
                           blurRadius: 8.0,
                           offset: Offset(0, 4),
                         )
@@ -47,6 +47,7 @@ class GenderToggle extends StatelessWidget {
             children: [
               Expanded(
                 child: GestureDetector(
+                  key: const Key('gender_male_button'),
                   onTap: () => onChanged(Gender.male),
                   child: Container(
                     color: Colors.transparent,
@@ -68,6 +69,7 @@ class GenderToggle extends StatelessWidget {
               ),
               Expanded(
                 child: GestureDetector(
+                  key: const Key('gender_female_button'),
                   onTap: () => onChanged(Gender.female),
                   child: Container(
                     color: Colors.transparent,

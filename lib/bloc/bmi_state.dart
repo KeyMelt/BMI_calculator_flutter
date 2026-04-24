@@ -1,15 +1,7 @@
-import 'package:bmi_calculator/screens/input_page.dart';
+import 'package:bmi_calculator/models/gender.dart';
 
 class BmiState {
-  final Gender? gender;
-  final int height;
-  final int weight;
-  final int age;
-  final String bmiResult;
-  final String resultText;
-  final String interpretation;
-
-  BmiState({
+  const BmiState({
     this.gender,
     this.height = 180,
     this.weight = 60,
@@ -18,6 +10,14 @@ class BmiState {
     this.resultText = '',
     this.interpretation = '',
   });
+
+  final Gender? gender;
+  final int height;
+  final int weight;
+  final int age;
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
 
   BmiState copyWith({
     Gender? gender,
@@ -38,10 +38,5 @@ class BmiState {
       resultText: resultText ?? this.resultText,
       interpretation: interpretation ?? this.interpretation,
     );
-  }
-
-  @override
-  String toString() {
-    return 'BmiState(gender: $gender, height: $height, weight: $weight, age: $age, bmiResult: $bmiResult, resultText: $resultText, interpretation: $interpretation)';
   }
 }

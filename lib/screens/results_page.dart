@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:bmi_calculator/bloc/bmi_bloc.dart';
+import 'package:bmi_calculator/bloc/bmi_state.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/components/bottom_button.dart';
-import 'package:bmi_calculator/cubit/bmi_cubit.dart';
-import 'package:bmi_calculator/cubit/bmi_state.dart';
 
 class ResultsPage extends StatelessWidget {
+  const ResultsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('BMI CALCULATOR')),
+        title: const Center(child: Text('BMI CALCULATOR')),
       ),
-      body: BlocBuilder<BmiCubit, BmiState>(
+      body: BlocBuilder<BmiBloc, BmiState>(
         builder: (context, state) {
-          
           final bmiString = state.bmiResult;
           final splitBmi = bmiString.split('.');
           final integerPart = splitBmi[0];
@@ -40,7 +41,7 @@ class ResultsPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24.0),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 10,
                         offset: Offset(0, 5),
                       ),
@@ -52,10 +53,12 @@ class ResultsPage extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         'BMI Results',
+                        key: const Key('bmi_results_title'),
                         style: kLabelTextStyle,
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       RichText(
+                        key: const Key('bmi_result_value'),
                         text: TextSpan(
                           children: [
                             TextSpan(
@@ -69,12 +72,13 @@ class ResultsPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10.0),
+                      const SizedBox(height: 10.0),
                       Text(
                         state.resultText.toUpperCase() + ' BMI',
+                        key: const Key('bmi_result_label'),
                         style: kBodyTextStyle.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 20.0),
+                      const SizedBox(height: 20.0),
                       Container(
                         padding: EdgeInsets.all(15.0),
                         margin: EdgeInsets.symmetric(horizontal: 20.0),
@@ -84,6 +88,7 @@ class ResultsPage extends StatelessWidget {
                         ),
                         child: Text(
                           state.interpretation,
+                          key: const Key('bmi_result_interpretation'),
                           textAlign: TextAlign.center,
                           style: kBodyTextStyle.copyWith(fontSize: 16.0),
                         ),
@@ -93,6 +98,7 @@ class ResultsPage extends StatelessWidget {
                 ),
               ),
               BottomButton(
+                key: const Key('save_results_button'),
                 buttonTitle: 'Save the results',
                 onTap: () {
                   Navigator.pop(context);
